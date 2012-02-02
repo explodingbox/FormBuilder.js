@@ -1,6 +1,6 @@
 #FormBuilder.js
 
-##Builds ajax forms from a given Model, when inputs are changed, model properties are automatically updated.
+Builds ajax forms from a given Model, when inputs are changed, model properties are automatically updated.
 
 ###NB: 
 
