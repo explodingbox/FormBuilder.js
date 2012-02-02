@@ -17,7 +17,7 @@
   <script type="text/javascript" charset="utf-8">
     window.addEvent('domready', function(){
       myModel = new Model();
-      fb = new FormBuilder(myModel);
+      fb = new FormBuilder(myModel.properties);
       fb.render().inject(document.id('container'));
       var save_button = new Element('button',{
         text: 'Save',
