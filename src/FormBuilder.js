@@ -1,11 +1,10 @@
-FormBuilder = (function(model,params){
+FormBuilder = (function(model){
   var self=this;
   if ( ! model) return false;
-  var params = params || {};
   self.render = function(){
     self.element = new Element('form');
-    for (var i=0; i < model.properties.length; i++) {
-      p = model.properties[i];
+    for (var i=0; i < model.length; i++) {
+      p = model[i];
       p.params = p.params || {}
       if ( p.label ) {
         new Element('label',{
