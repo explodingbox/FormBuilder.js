@@ -202,26 +202,42 @@ FormBuilder.prototype.builders.date = function(p){
   el          = new Element('div.'+p.key+'.datepicker');
   date_array  = p.value.split('-');
   date_object = {
-    year  : date_array[0].toInt(),
-    month : date_array[1].toInt(),
-    day   : date_array[2].toInt()
+    year  : date_array[0],//.toInt(),
+    month : date_array[1],//.toInt(),
+    day   : date_array[2]//.toInt()
   };
   updateValue = function(){
-    p.value = (year_select.get('value')+'-'+month_select.get('value')+'-'+day_select.get('value'));
+    var yv = year_select.get('value');
+    var mv = month_select.get('value'); //if ( mv.toInt() < 10 ) yv = '0'+dv;
+    var dv = day_select.get('value');   //if ( dv.toInt() < 10 ) yv = '0'+dv;
+    p.value = (yv+'-'+mv+'-'+dv);
   }
   month_select = new Element('select',{events:{'change':updateValue}});
   months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  for (var i=0; i < months.length; i++) {
+  for (var i=1; i < months.length+1; i++) {
+    var val;
+    if (i <= 9) {
+      val = "0"+i;
+    } else {
+      val = i;
+    }
+    
     new Element('option',{
-      value: i+1,
-      text: months[i]
+      value: val,
+      text: months[i-1]
     }).inject(month_select);
   };
   month_select.set('value',date_object.month);
   day_select = new Element('select',{events:{'change':updateValue}});
   for (var i=1; i < 32; i++) {
+    var val;
+    if (i <= 9) {
+      val = "0"+i.toString();
+    } else {
+      val = i.toString();
+    }
     new Element('option',{
-      value: i,
+      value: val,
       text: i
     }).inject(day_select);
   };
