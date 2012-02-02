@@ -46,6 +46,7 @@ FormBuilder.prototype.builders.text = function(p){
   var el = new Element('input.'+p.key,{
     name: p.key,
     value: p.value,
+    type: 'text',
     placeholder: p.params.placeholder,
     events: {
       change: function(){
