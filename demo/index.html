@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FormBuilder</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="Exploding Box Productions">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="style.css?v=1">
+  <script type="text/javascript" src="mootools.js"></script>
+  <script type="text/javascript" src="mootools-more.js"></script>
+  <script type="text/javascript" src="RangeSlider.js"></script>
+  <script type="text/javascript" src="../src/FormBuilder.js"></script>
+  <script type="text/javascript" src="model.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    window.addEvent('domready', function(){
+      myModel = new Model();
+      fb = new FormBuilder(myModel);
+      fb.render().inject(document.id('container'));
+      var save_button = new Element('button',{
+        text: 'Save',
+        events: {
+          'click': function(e){
+            event.preventDefault();
+            event.stopPropagation();
+            myModel.save();
+          }
+        }
+      }).inject(document.id('container'));
+    });
+  
+  </script>
+</head>
+  <body>
+    <div id="container">
+      
+    </div>
+  </body>
+</html>
