@@ -24,10 +24,12 @@ FormBuilder = (function(model){
 FormBuilder.prototype.builders = {};
 
 FormBuilder.prototype.builders.collection = function(p){
-  var el = new Element('div.'+p.key+'.collection');
-  var builders = this;
-  for (var i=0; i < p.items.length; i++) {
-    var item = p.items[i]
+  var el = new Element('div.'+p.key+'.collection'),
+      builders = this,
+      add_button,
+      drawItem
+      
+  drawItem = function(item){
     item.params = item.params || {};
     if ( item.label && item.type != 'checkbox') { //checkbox makes its own label
       new Element('label',{
@@ -37,7 +39,37 @@ FormBuilder.prototype.builders.collection = function(p){
     if( builders[item.type] ){
       el.adopt(builders[item.type](item));
     }
-  };
+  }
+  
+  for (var i=0; i < p.items.length; i++) { drawItem(p.items[i]) };
+  
+  if ( p.params.add ) {
+    add_button = new Element('button',{
+      'text' : 'Add',
+      'events' : {
+        'mouseover' : function(){add_button.addClass('mouseover')},
+        'mousedown' : function(){add_button.addClass('mousedown')},
+        'mouseup'   : function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          add_button.removeClass('mousedown');
+        },
+        'mouseout'  : function(){
+          add_button.removeClass('mouseover');
+          add_button.removeClass('mousedown');
+        },
+        'click'     : function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          console.log(p.params.base);
+          var item = Object.clone(p.params.base);
+          p.items.push(item);
+          drawItem(item);
+        }
+      }
+    });
+    el.adopt(add_button);
+  }
   return el;
 }
 
